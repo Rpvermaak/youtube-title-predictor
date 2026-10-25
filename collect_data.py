@@ -72,14 +72,18 @@ def main():
     # load channels.csv
     channels = pd.read_csv("data/channels.csv")
     all_rows = []
-    for i, row in channels.head(2).iterrows():
+    for i, row in channels.iterrows():
         print(f"{i+1}/{len(channels)} {row['title']}")
-        ids = get_video_ids(row["uploads_playlist_id"])
-        rows = get_video_details(ids)
-        all_rows.extend(rows)
+        try:
+            ids = get_video_ids(row["uploads_playlist_id"])
+            rows = get_video_details(ids)
+            all_rows.extend(rows)
+        except Exception as e:
+            print(f"Error processing channel {row['title']}: {e}")
     videos_df = pd.DataFrame(all_rows)
     videos_df.to_csv("data/videos.csv", index=False)
     print(videos_df.shape)
+    print(videos_df["channel_id"].value_counts().describe())
 
 if __name__ == "__main__":
     main()
