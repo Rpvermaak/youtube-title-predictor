@@ -1,4 +1,5 @@
 # import necessary libraries
+from json import load
 import os
 from dotenv import load_dotenv
 import pandas as pd
@@ -54,26 +55,31 @@ def get_video_details(video_ids):
         page = response.json()
         for v in page["items"]:
             video_rows.append({
-            "video_id": v["id"],
-            "channel_id": v["snippet"]["channelId"],
-            "title": v["snippet"]["title"],
-            "published_at": v["snippet"]["publishedAt"],
-            "duration": v["contentDetails"]["duration"],
-            "view_count": int(v["statistics"].get("viewCount", 0)),
-            "tags": "|".join(v["snippet"].get("tags", [])),
-            "description": v["snippet"]["description"],
-            "was_live": "liveStreamingDetails" in v,
-        })
+                "video_id": v["id"],
+                "channel_id": v["snippet"]["channelId"],
+                "title": v["snippet"]["title"],
+                "published_at": v["snippet"]["publishedAt"],
+                "duration": v["contentDetails"]["duration"],
+                "view_count": int(v["statistics"].get("viewCount", 0)),
+                "tags": "|".join(v["snippet"].get("tags", [])),
+                "description": v["snippet"]["description"],
+                "was_live": "liveStreamingDetails" in v,
+            })
 
     return video_rows
 
 def main():
-    ids = get_video_ids("UUYAIbGWcLdohnpRh-YLXzRw")
-    print(len(ids))
-    rows = get_video_details(ids)
-    print(len(rows))
-    if rows:
-        print(rows[0]["title"])
+    # load channels.csv
+    channels = pd.read_csv("data/channels.csv")
+    all_rows = []
+    for i, row in channels.head(2).iterrows():
+        print(f"{i+1}/{len(channels)} {row['title']}")
+        ids = get_video_ids(row["uploads_playlist_id"])
+        rows = get_video_details(ids)
+        all_rows.extend(rows)
+    videos_df = pd.DataFrame(all_rows)
+    videos_df.to_csv("data/videos.csv", index=False)
+    print(videos_df.shape)
 
 if __name__ == "__main__":
     main()
