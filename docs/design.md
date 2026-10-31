@@ -23,7 +23,7 @@ guiding (explaining, reviewing, unblocking). The implementation plan should
 be a sequence of learnable tasks for the user, notebook-first, not code for
 an agent to paste in.
 
-**Deadline:** submission due **2026-11-16** (30 days from 2026-10-17).
+**Deadline:** project submission due **2026-11-09** (Mon, 23:00 UTC); peer reviews of 3 projects due **2026-11-16**. (Corrected 2026-10-26 — 16 Nov is the peer-review deadline, not submission.)
 
 It will live in its **own standalone GitHub repo** (not a subfolder of this
 course repo), per the course FAQ's recommendation for a real project title
@@ -240,7 +240,7 @@ README.md
 .gitignore          # excludes .env
 ```
 
-## Plan (~4 weeks of evenings/weekends, due 2026-11-16)
+## Plan (submission due 2026-11-09, peer reviews due 2026-11-16)
 
 If time runs short, cut in this order: cloud deployment bonus → random
 forest → hour/weekday bucketing refinements. Never cut: grouped CV, README,
