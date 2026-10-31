@@ -79,7 +79,10 @@ surface stats (length, caps) but the words themselves.
 - **Filters**:
   - **Long-form only**: drop videos with duration ≤ 180 s (Shorts can be up to
     3 minutes) and drop live streams / premieres-as-live.
-  - Age **> 30 days** (views roughly stabilized) and **≤ ~3 years** (keeps
+  - Age **> 90 days** (raised from 30 days after EDA on 2026-10-31: videos
+    aged 30–90 days beat their baseline 65% of the time vs ~50% for every older
+    band, likely a selection effect of finding channels via search while they
+    are growing) and **≤ ~3 years** (keeps
     very old videos from dominating and limits drift in what titles work).
 - **Per-channel floor**: only include channels with at least ~20 qualifying
   videos after filtering.
