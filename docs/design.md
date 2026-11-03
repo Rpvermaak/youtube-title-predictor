@@ -36,7 +36,7 @@ video will outperform its own channel's recent typical performance.
 
 **Primary use case:** before publishing a video, the user types in **2–3
 candidate titles** plus the video's shared details (duration, planned upload
-day/hour, channel subscriber count, etc.). The service scores each title and
+day/hour etc.). The service scores each title and
 returns them **ranked**, highest probability of beating the channel's typical
 performance first. The relative ordering of titles matters more than the
 absolute probability.
@@ -131,11 +131,10 @@ All known at upload time.
   `-` separator.
 - **Video details**: duration (minutes, possibly log), publish day of week,
   publish hour (UTC, or bucketed), number of tags, description length.
-- **Channel**: subscriber-count bucket (from current subscriber count; known
-  limitation, documented).
 
 Excluded: Short/long-form flag (all data is long-form now), thumbnails,
-any post-upload engagement.
+any post-upload engagement, subscriber count (the API only gives the current
+count, and the target already compares each video with its own channel's baseline).
 
 ## Leakage rules
 
@@ -188,7 +187,7 @@ end of week 2 to look at the model 1 vs model 2 gap so it's known early.
 
 - `GET /health`
 - `POST /predict` — request: shared video details (duration, upload
-  day/hour, subscriber count, tag count, description length) plus a list of
+  day/hour, tag count, description length) plus a list of
   1–5 candidate titles. Response: titles with their probability, sorted
   highest first.
 
@@ -200,7 +199,6 @@ Example request:
   "duration_min": 18,
   "publish_weekday": "Saturday",
   "publish_hour": 17,
-  "subscribers": 340,
   "n_tags": 12,
   "description_length": 600
 }
