@@ -96,7 +96,7 @@ Use it as a second opinion when choosing between titles, not as a view forecast.
 ### 1. Get the code and install dependencies
 
 ```bash
-git clone https://github.com/<your-github-username>/youtube-title-predictor.git
+git clone https://github.com/Rpvermaak/youtube-title-predictor.git
 cd youtube-title-predictor
 uv sync
 ```
