@@ -9,4 +9,5 @@ wheels/
 # Virtual environments
 .venv
 .env
-.ipynb_checkpoints/docs/design.md
+.ipynb_checkpoints/
+docs/design.md
