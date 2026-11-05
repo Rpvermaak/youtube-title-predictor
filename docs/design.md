@@ -86,7 +86,7 @@ surface stats (length, caps) but the words themselves.
     very old videos from dominating and limits drift in what titles work).
 - **Per-channel floor**: only include channels with at least ~20 qualifying
   videos after filtering.
-- **English titles only** _(Claude's call)_: prefer English-language
+- **English titles only**: prefer English-language
   channels when curating, and drop non-English titles during cleaning (e.g.
   `langdetect` or a simple non-ASCII-ratio heuristic). Mixed languages would
   fragment the TF-IDF vocabulary and make "top title words" misleading.
@@ -172,12 +172,12 @@ regression with TF-IDF is a strong, course-aligned candidate.)
 - **KarmicSteps check**: score KarmicSteps' past videos and discuss in the
   README whether the ranking looks sensible. Qualitative only.
 
-**Choosing the final model** _(Claude's call)_: report both pooled
+**Choosing the final model**: report both pooled
 channel-grouped AUC and mean per-channel AUC. Pick the model with the best
 pooled AUC, but if a model that uses title text is within ~0.01 AUC of the
 top, prefer it — the use case only varies the title.
 
-**If the title text adds little signal** _(Claude's call)_: ship anyway.
+**If the title text adds little signal**: ship anyway.
 This is a valid finding for a midterm; report the size of the gain honestly
 in the README (e.g. "title words add +0.02 AUC over metadata alone") and
 list it as a limitation. Don't redesign mid-project. Add a checkpoint at the
