@@ -207,8 +207,7 @@ New data will give somewhat different results, because view counts keep changing
 ├── model.bin             # trained model (DictVectorizer, TF-IDF, logistic regression)
 ├── Dockerfile
 ├── pyproject.toml, uv.lock
-├── data/                 # channels, raw videos, cleaned videos
-└── docs/design.md        # design decisions made before building
+└── data/                # channels, raw videos, cleaned videos
 ```
 
 ## Limitations and future work
