@@ -6,6 +6,8 @@ typical views**.
 
 Midterm project for [ML Zoomcamp](https://github.com/DataTalksClub/machine-learning-zoomcamp).
 
+**Live demo:** https://youtube-title-predictor.onrender.com/docs (see [Cloud deployment](#5-cloud-deployment-render))
+
 ## Problem description
 
 We run [KarmicSteps](https://www.youtube.com/@KarmicSteps), a small couple travel channel
@@ -138,6 +140,40 @@ docker run -it --rm -p 9696:9696 youtube-title-predictor
 The image installs only the service packages (FastAPI, pandas, scikit-learn, uvicorn) with the
 locked versions from `uv.lock`.
 
+### 5. Cloud deployment (Render)
+
+The service is deployed on [Render](https://render.com) from the same Dockerfile:
+
+**https://youtube-title-predictor.onrender.com**
+
+- Interactive API page: https://youtube-title-predictor.onrender.com/docs
+- Health check: https://youtube-title-predictor.onrender.com/health
+
+The deployment is defined as code in [`render.yaml`](render.yaml): a Docker web service on the
+free plan, listening on port 9696. To deploy your own copy, fork this repo, then in Render choose
+**New → Blueprint** and select the fork. Render builds the Dockerfile and gives you a URL.
+
+Note: on the free plan the service sleeps after ~15 minutes without traffic. The first request
+after that can take about a minute while it starts up again.
+
+To test the cloud version, use the [example request](#example-request) below with the Render URL
+instead of `localhost:9696`:
+
+```bash
+curl -X POST https://youtube-title-predictor.onrender.com/predict \
+  -H "Content-Type: application/json" \
+  -d '{"titles": ["Vlog | Episode 12", "Is Da Nang worth it?"], "duration_min": 18, "publish_weekday": "Saturday", "publish_hour": 17}'
+```
+
+Testing the deployed service with four candidate titles for one of our own videos. The request
+goes to the Render URL and the response ranks the titles, best first:
+
+![Prediction on the deployed service on Render](images/render_results.png)
+
+The interactive API page on Render (`/docs`):
+
+![API page on Render](images/render_docs_page.png)
+
 ### Example request
 
 ```bash
@@ -206,8 +242,10 @@ New data will give somewhat different results, because view counts keep changing
 ├── predict.py            # FastAPI service
 ├── model.bin             # trained model (DictVectorizer, TF-IDF, logistic regression)
 ├── Dockerfile
+├── render.yaml           # cloud deployment on Render
 ├── pyproject.toml, uv.lock
-└── data/                # channels, raw videos, cleaned videos
+├── images/               # screenshots for this README
+└── data/                 # channels, raw videos, cleaned videos
 ```
 
 ## Limitations and future work
