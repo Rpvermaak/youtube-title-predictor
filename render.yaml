@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: youtube-title-predictor
+    runtime: docker
+    plan: free
+    envVars:
+      - key: PORT
+        value: "9696"
